@@ -1,0 +1,21 @@
+{
+  "name": "terminal-table",
+  "version": "0.0.1",
+  "description": "View a table in the terminal.",
+  "main": "index.js",
+  "dependencies": {
+    "eastasianwidth": "^0.1.0"
+  },
+  "devDependencies": {
+    "colors": "^1.0.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "terminal",
+    "cli"
+  ],
+  "author": "@zaftzaft",
+  "license": "MIT"
+}
