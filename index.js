@@ -2,8 +2,39 @@ var eaw = require("eastasianwidth");
 
 function Table(options){
   this.table = [];
+  this.borderStyle = options.borderStyle;
+  this.horizontalLine = options.horizontalLine;
   this.rightPadding = options.rightPadding || 0;
   this.leftPadding = options.leftPadding || 0;
+
+  if(this.borderStyle === 0){
+    this.border = options.border;
+  }
+  else if(this.borderStyle === 2){
+    this.border = {
+      sep: "│",
+      topLeft: "┌", topMid: "┬", top: "─", topRight: "┐",
+      midLeft: "├", midMid: "┼", mid: "─", midRight: "┤",
+      botLeft: "└", botMid: "┴", bot: "─", botRight: "┘"
+    };
+  }
+  else if(this.borderStyle === 3){
+    this.border = {
+      sep: "┃",
+      topLeft: "┏", topMid: "┳", top: "━", topRight: "┓",
+      midLeft: "┣", midMid: "╋", mid: "━", midRight: "┫",
+      botLeft: "┗", botMid: "┻", bot: "━", botRight: "┛"
+    };
+  }
+  else{
+    this.border = {
+      sep: "|",
+      topLeft: "+", topMid: "+", top: "-", topRight: "+",
+      midLeft: "|", midMid: "+", mid: "-", midRight: "|",
+      botLeft: "+", botMid: "+", bot: "-", botRight: "+"
+    };
+  }
+
 }
 
 
@@ -94,29 +125,40 @@ Table.prototype.push = function(items){
 
 Table.prototype.output = Table.prototype.toString = function(){
   var text = "";
-  var border = "+";
   var mcCache = [];
   var hlen = this.horlen();
 
   for(var i = 0, m;i < hlen;i++){
     m = mcCache[i] = this.maxcell(i);
-    border += new Array(m + 1).join("-");
-    border += "+";
   }
 
-  text += border + "\n";
+  var b = this.border;
+  var topBorder = b.topLeft + mcCache.map(function(n){
+    return new Array(n + 1).join(b.top);
+  }).join(b.topMid) + b.topRight;
+  var midBorder = b.midLeft + mcCache.map(function(n){
+    return new Array(n + 1).join(b.mid);
+  }).join(b.midMid) + b.midRight;
+  var botBorder = b.botLeft + mcCache.map(function(n){
+    return new Array(n + 1).join(b.bot);
+  }).join(b.botMid) + b.botRight;
+
+  text += topBorder + "\n";
 
   var t = this.table;
   for(var row = 0, rowlen = t.length;row < rowlen;row++){
-    text += "|";
+    if(row != 0 && this.horizontalLine){
+      text += midBorder + "\n";
+    }
+    text += b.sep;
     for(var column = 0, str;column < hlen;column++){
       str = (!t[row] || !t[row][column]) ? "" : t[row][column].text;
-      text += this.pad(str, mcCache[column]) + "|";
+      text += this.pad(str, mcCache[column]) + b.sep;
     }
     text += "\n";
   }
 
-  text += border;
+  text += botBorder;
 
   return text;
 };

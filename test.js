@@ -2,7 +2,9 @@ var Table = require("./");
 require("colors");
 
 var t = new Table({
-  rightPadding: 3,
+  borderStyle: 3,
+  horizontalLine: true,
+  rightPadding: 1,
   leftPadding: 1
 });
 
