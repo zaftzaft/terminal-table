@@ -4,6 +4,7 @@ require("colors");
 var t = new Table({
   borderStyle: 3,
   horizontalLine: true,
+  width: [20, "50%", "50%"],
   rightPadding: 1,
   leftPadding: 1
 });

@@ -5,6 +5,7 @@ function Table(options){
   this.table = [];
   this.borderStyle = options.borderStyle;
   this.horizontalLine = options.horizontalLine || false;
+  this.width = options.width || [];
   this.rightPadding = options.rightPadding || 0;
   this.leftPadding = options.leftPadding || 0;
 
@@ -62,6 +63,9 @@ Table.prototype.pad = function(text, n){
 
 
 Table.prototype.maxcell = function(column){
+  //if(this.width[column]){
+  //  return this.width[column];
+  //}
   var ps = this.leftPadding + this.rightPadding;
   var m = 0;
   for(var i = 0, l = this.table.length;i < l;i++){
@@ -71,6 +75,54 @@ Table.prototype.maxcell = function(column){
     m = Math.max(m, this.strlen(this.table[i][column].text) + ps);
   }
   return m;
+};
+
+
+Table.prototype.calcWidth = function(){
+  var integer = [], percent = [];
+  var screenWidth;
+  var sum = function(){
+    return integer.reduce(function(m, n){return m + n;}, 0);
+  };
+
+
+  for(var i = 0, l = this.horlen();i < l;i++){
+    if(!this.width[i]){
+      integer[i] = this.maxcell(i);
+    }
+    else if(1 <= this.width[i]){
+      integer[i] = this.width[i] | 0;
+    }
+    else{
+      percent.push(i);
+    }
+  }
+
+  screenWidth = process.stdout.columns - sum();
+
+  for(var p, i = 0, l = percent.length;i < l;i++){
+    p = this.width[percent[i]];
+
+    // "xx%" -> 0.xx
+    if(/\d+%/.test(p)){
+      p = parseInt(p, 10) / 100;
+    }
+
+    integer[percent[i]] = screenWidth * p;
+  }
+
+  var borderSize = this.horlen() + 1;
+  if(percent.length && (process.stdout.columns < sum() + borderSize)){
+    var bpl = borderSize / percent.length | 0;
+    var ex = borderSize % percent.length;
+    for(var d, i = 0, l = percent.length;i < l;i++){
+      d = bpl;
+      ex && (d += ex, ex = 0);
+      integer[percent[i]] -= d;
+    }
+  }
+
+  return integer;
 };
 
 
@@ -129,9 +181,10 @@ Table.prototype.output = Table.prototype.toString = function(){
   var mcCache = [];
   var hlen = this.horlen();
 
-  for(var i = 0, m;i < hlen;i++){
-    m = mcCache[i] = this.maxcell(i);
-  }
+  mcCache = this.calcWidth();
+  //for(var i = 0, m;i < hlen;i++){
+  //  m = mcCache[i] = this.maxcell(i);
+  //}
 
   var b = this.border;
   var topBorder = b.topLeft + mcCache.map(function(n){
