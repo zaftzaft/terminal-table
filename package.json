@@ -1,6 +1,6 @@
 {
   "name": "terminal-table",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "View a table in the terminal.",
   "main": "index.js",
   "dependencies": {
@@ -14,6 +14,7 @@
     "terminal",
     "cli"
   ],
+  "repository": "https://github.com/zaftzaft/terminal-table.git",
   "author": "@zaftzaft",
   "license": "MIT"
 }
