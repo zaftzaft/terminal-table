@@ -1,6 +1,6 @@
 {
   "name": "terminal-table",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "View a table in the terminal.",
   "main": "index.js",
   "dependencies": {
