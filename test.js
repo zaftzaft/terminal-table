@@ -19,4 +19,7 @@ t.cell(0, 2, "new");
 t.attr(1, 1, {align: "center"});
 t.attr(0, 0, {align: "right"});
 
+t.attrRange({row: [0, 1]}, {align: "center"});
+console.log(t.getRange(0, 0, "align"));
+
 console.log(""+t);

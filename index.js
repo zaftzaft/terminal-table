@@ -3,6 +3,7 @@ var eaw = require("eastasianwidth");
 function Table(options){
   options = options || {};
   this.table = [];
+  this.attrMap = [];
   this.borderStyle = options.borderStyle;
   this.horizontalLine = options.horizontalLine || false;
   this.width = options.width || [];
@@ -172,12 +173,43 @@ Table.prototype.attr = function(row, column, attr){
 };
 
 
+/*
+ * attrRange({row: [start(, end)]}, {attr})
+ */
+Table.prototype.attrRange = function(range, attr){
+  this.attrMap.push({
+    row: range.row || [],
+    column: range.column || [],
+    attr: attr
+  });
+};
+
+
+Table.prototype.getRange = function(row, column, attr){
+  for(var i = this.attrMap.length, m;i--;){
+    m = this.attrMap[i];
+    var r = ((m.row[0] || 0) <= row && row <= (m.row[1] || Infinity)) ? 1 : 0;
+    var c = ((m.column[0] || 0) <= column && column <= (m.column[1] || Infinity)) ? 1 : 0;
+    if((r & c) && m.attr[attr]){
+      return m.attr[attr];
+    }
+  }
+  return null;
+};
+
+
 Table.prototype.getAttr = function(row, column, attr){
+  var val = null;
   if(!this.table[row] || !this.table[row][column]){
     return null;
   }
-  return this.table[row][column][attr] || null;
-}
+  if(val = this.table[row][column][attr] || null){
+    return val;
+  }
+  else{
+    return this.getRange(row, column, attr);
+  }
+};
 
 
 Table.prototype.cell = function(row, column, text){
