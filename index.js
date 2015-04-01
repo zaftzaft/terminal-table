@@ -245,6 +245,13 @@ Table.prototype.removeColumn = function(column, n){
 
 
 Table.prototype.push = function(items){
+  if(1 < arguments.length){
+    for(var i = 0, l = arguments.length;i < l;i++){
+      Array.isArray(arguments[i]) && this.push(arguments[i]);
+    }
+    return;
+  }
+
   var row = this.table.length;
   for(var i = 0, l = items.length;i < l;i++){
     this.cell(row, i, items[i] || "");
