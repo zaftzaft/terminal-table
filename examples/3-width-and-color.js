@@ -17,9 +17,11 @@ t.attrRange({row: [0, 1]}, {
   align: "center",
   color: "blue"
 });
+
 t.attrRange({column: [0, 1]}, {
   color: "green"
 });
+
 t.attrRange({
   row: [1],
   column: [1]

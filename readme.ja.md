@@ -2,6 +2,8 @@ terminal-table
 ==============
 ターミナルにテーブルを表示するやつ
 
+![screenshot](https://raw.githubusercontent.com/zaftzaft/terminal-table/master/img/screenshot.png)
+
 ## 機能
 - ターミナルの幅に合わせて表示可能
 - 中央寄せ, 右寄せ
@@ -43,14 +45,13 @@ console.log("" + t);
       }
     });
   ```
-
 - horizontalLine - Boolean
 - width - Array
-``` js
-new Table({
-  width: [10, "50%", "50%"]
-});
-```
+  ``` js
+  new Table({
+    width: [10, "50%", "50%"]
+  });
+  ```
 - leftPadding, rightPadding
 
 
