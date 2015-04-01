@@ -1,9 +1,10 @@
 var eaw = require("eastasianwidth");
 
 function Table(options){
+  options = options || {};
   this.table = [];
   this.borderStyle = options.borderStyle;
-  this.horizontalLine = options.horizontalLine;
+  this.horizontalLine = options.horizontalLine || false;
   this.rightPadding = options.rightPadding || 0;
   this.leftPadding = options.leftPadding || 0;
 
