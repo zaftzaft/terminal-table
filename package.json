@@ -1,13 +1,11 @@
 {
   "name": "terminal-table",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "View a table in the terminal.",
   "main": "index.js",
   "dependencies": {
+    "colors": "^1.0.3",
     "eastasianwidth": "^0.1.0"
-  },
-  "devDependencies": {
-    "colors": "^1.0.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,4 +1,5 @@
 var eaw = require("eastasianwidth");
+var colors = require("colors/safe");
 
 function Table(options){
   options = options || {};
@@ -74,6 +75,10 @@ Table.prototype.format = function(row, column, size){
   var lp = this.space(this.getAttr(row, column, "leftPadding") || this.leftPadding);
   var rp = this.space(this.getAttr(row, column, "rightPadding") || this.rightPadding);
   var align = this.getAttr(row, column, "align");
+  var color = this.getAttr(row, column, "color");
+  if(color){
+    str = colors[color](str);
+  }
 
   if(this.strlen(lp + str + rp) <= size){
     str = lp + str + rp;
