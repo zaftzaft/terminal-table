@@ -189,8 +189,8 @@ Table.prototype.attrRange = function(range, attr){
 Table.prototype.getRange = function(row, column, attr){
   for(var i = this.attrMap.length, m;i--;){
     m = this.attrMap[i];
-    var r = ((m.row[0] || 0) <= row && row <= (m.row[1] || Infinity)) ? 1 : 0;
-    var c = ((m.column[0] || 0) <= column && column <= (m.column[1] || Infinity)) ? 1 : 0;
+    var r = ((m.row[0] || 0) <= row && row < (m.row[1] || Infinity)) ? 1 : 0;
+    var c = ((m.column[0] || 0) <= column && column < (m.column[1] || Infinity)) ? 1 : 0;
     if((r & c) && m.attr[attr]){
       return m.attr[attr];
     }
