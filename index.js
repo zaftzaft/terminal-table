@@ -36,7 +36,6 @@ function Table(options){
       botLeft: "+", botMid: "+", bot: "-", botRight: "+"
     };
   }
-
 }
 
 
@@ -50,22 +49,43 @@ Table.prototype.strlen = function(text){
 };
 
 
-Table.prototype.pad = function(text, n){
-  text = this.space(this.leftPadding) + text + this.space(this.rightPadding);
-
+Table.prototype.pad = function(text, n, align){
   var l = this.strlen(text);
   if(n > l){
-    text += this.space(n - l);
-    //text = this.space(n - l) + text; right
+    var d = n - l;
+    if(align === 2){
+      text = this.space(d) + text;
+    }
+    else if(align === 1){
+      text = this.space((d / 2 | 0) + (d % 2)) + text + this.space((d / 2 | 0));
+    }
+    else{
+      text += this.space(d);
+    }
   }
   return text;
 };
 
 
+Table.prototype.format = function(row, column, size){
+  var t = this.table;
+  var str = (!t[row] || !t[row][column]) ? "" : t[row][column].text;
+  var lp = this.space(this.leftPadding);
+  var rp = this.space(this.rightPadding);
+  var align = this.getAttr(row, column, "align");
+
+  if(this.strlen(lp + str + rp) <= size){
+    str = lp + str + rp;
+  }
+  if(this.strlen(str) > size){
+    // ajust
+  }
+
+  return this.pad(str, size, align === "right" ? 2 : align === "center" ? 1 : 0);
+};
+
+
 Table.prototype.maxcell = function(column){
-  //if(this.width[column]){
-  //  return this.width[column];
-  //}
   var ps = this.leftPadding + this.rightPadding;
   var m = 0;
   for(var i = 0, l = this.table.length;i < l;i++){
@@ -84,7 +104,6 @@ Table.prototype.calcWidth = function(){
   var sum = function(){
     return integer.reduce(function(m, n){return m + n;}, 0);
   };
-
 
   for(var i = 0, l = this.horlen();i < l;i++){
     if(!this.width[i]){
@@ -140,6 +159,25 @@ Table.prototype.init = function(row, column){
     text: ""
   };
 };
+
+
+Table.prototype.attr = function(row, column, attr){
+  if(!this.table[row] || !this.table[row][column]){
+    return;
+  }
+  var cell = this.table[row][column];
+  Object.keys(attr).forEach(function(key){
+    cell[key] = attr[key];
+  });
+};
+
+
+Table.prototype.getAttr = function(row, column, attr){
+  if(!this.table[row] || !this.table[row][column]){
+    return null;
+  }
+  return this.table[row][column][attr] || null;
+}
 
 
 Table.prototype.cell = function(row, column, text){
@@ -206,8 +244,7 @@ Table.prototype.output = Table.prototype.toString = function(){
     }
     text += b.sep;
     for(var column = 0, str;column < hlen;column++){
-      str = (!t[row] || !t[row][column]) ? "" : t[row][column].text;
-      text += this.pad(str, mcCache[column]) + b.sep;
+      text += this.format(row, column, mcCache[column]) + b.sep;
     }
     text += "\n";
   }

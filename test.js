@@ -5,7 +5,7 @@ var t = new Table({
   borderStyle: 3,
   horizontalLine: true,
   width: [20, "50%", "50%"],
-  rightPadding: 1,
+  rightPadding: 0,
   leftPadding: 1
 });
 
@@ -15,5 +15,8 @@ t.cell(1, 0, "hogehoge");
 t.cell(1, 1, "いろはにほへと".green);
 t.push(["alpha", "bravo"]);
 t.cell(0, 2, "new");
+
+t.attr(1, 1, {align: "center"});
+t.attr(0, 0, {align: "right"});
 
 console.log(""+t);
