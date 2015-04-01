@@ -12,10 +12,11 @@ terminal-table
 - 枠線は三種類から選べる、またカスタマイズも可能
 
 ## インストール
+`$ npm i terminal-table`
 
 ## 使い方
 ``` js
-var Table = require("<module-name>");
+var Table = require("terminal-table");
 var t = new Table();
 
 t.push(

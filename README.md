@@ -14,10 +14,11 @@ View a table in the terminal
 
 
 ## Installation
+`$ npm i terminal-table`
 
 ## Usage
 ``` js
-var Table = require("<module-name>");
+var Table = require("terminal-table");
 var t = new Table();
 
 t.push(
