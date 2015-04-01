@@ -12,6 +12,17 @@ terminal-table
 ## インストール
 
 ## 使い方
+``` js
+var Table = require("<module-name>");
+var t = new Table();
+
+t.push(
+  ["First", "Second"],
+  ["Foo", "Bar"]
+);
+
+console.log("" + t);
+```
 
 ## API
 
@@ -20,17 +31,32 @@ terminal-table
   - 1: ascii
   - 2: unicode
   - 3: unicode bold
-- horizontalLine - Boolean
-- width - Array
-  ```js
-    new Table({
-      width: [10, "50%", "50%"]
+  - 0: user custom
+  ``` js
+    var t = new Table({
+      borderStyle: 0,
+      border: {
+        sep: "║",
+        topLeft: "╔", topMid: "╦", top: "═", topRight: "╗",
+        midLeft: "╠", midMid: "╬", mid: "═", midRight: "╣",
+        botLeft: "╚", botMid: "╩", bot: "═", botRight: "╝"
+      }
     });
   ```
+
+- horizontalLine - Boolean
+- width - Array
+``` js
+new Table({
+  width: [10, "50%", "50%"]
+});
+```
 - leftPadding, rightPadding
 
+
+
 ### Methods
-- push(["item","item2",,,])
+- push(["item", "item2",,,],,,)
 - cell(row, column, text)
 - attr(row, column, { attrs })
 - attrRange({ range }, { attrs })
