@@ -71,8 +71,8 @@ Table.prototype.pad = function(text, n, align){
 Table.prototype.format = function(row, column, size){
   var t = this.table;
   var str = (!t[row] || !t[row][column]) ? "" : t[row][column].text;
-  var lp = this.space(this.leftPadding);
-  var rp = this.space(this.rightPadding);
+  var lp = this.space(this.getAttr(row, column, "leftPadding") || this.leftPadding);
+  var rp = this.space(this.getAttr(row, column, "rightPadding") || this.rightPadding);
   var align = this.getAttr(row, column, "align");
 
   if(this.strlen(lp + str + rp) <= size){
@@ -80,6 +80,7 @@ Table.prototype.format = function(row, column, size){
   }
   if(this.strlen(str) > size){
     // ajust
+    str = str.slice(0, size);
   }
 
   return this.pad(str, size, align === "right" ? 2 : align === "center" ? 1 : 0);
@@ -128,7 +129,7 @@ Table.prototype.calcWidth = function(){
       p = parseInt(p, 10) / 100;
     }
 
-    integer[percent[i]] = screenWidth * p;
+    integer[percent[i]] = screenWidth * p | 0;
   }
 
   var borderSize = this.horlen() + 1;
