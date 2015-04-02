@@ -14,7 +14,9 @@ View a table in the terminal
 
 
 ## Installation
-`$ npm i terminal-table`
+```bash
+$ npm i terminal-table
+```
 
 ## Usage
 ``` js
@@ -50,11 +52,11 @@ console.log("" + t);
   ```
 - horizontalLine - Boolean
 - width - Array
-  ``` js
-  new Table({
-    width: [10, "50%", "50%"]
-  });
-  ```
+``` js
+new Table({
+  width: [10, "50%", "50%"]
+});
+```
 - leftPadding, rightPadding
 
 
@@ -63,7 +65,14 @@ console.log("" + t);
 - push(["item", "item2",,,],,,)
 - cell(row, column, text)
 - attr(row, column, { attrs })
+  *attrs*
+  - align: `left`, `center`, `right`
+  - color: from colors.js, e.g. `blue`, `red`...
+  - bg: `blue`, `black`...
 - attrRange({ range }, { attrs })
+  *range*
+  - row: [start, end]
+  - column: [start, end]
 - removeCell(row, column)
 - removeRow(row)
 - removeColumn(column)

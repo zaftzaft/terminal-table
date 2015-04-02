@@ -12,7 +12,9 @@ terminal-table
 - 枠線は三種類から選べる、またカスタマイズも可能
 
 ## インストール
-`$ npm i terminal-table`
+```bash
+$ npm i terminal-table
+```
 
 ## 使い方
 ``` js
@@ -48,11 +50,11 @@ console.log("" + t);
   ```
 - horizontalLine - Boolean
 - width - Array
-  ``` js
-  new Table({
-    width: [10, "50%", "50%"]
-  });
-  ```
+``` js
+new Table({
+  width: [10, "50%", "50%"]
+});
+```
 - leftPadding, rightPadding
 
 

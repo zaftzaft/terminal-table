@@ -15,7 +15,8 @@ t.push(["✓", "192.168.0.4", "255.255.255.0", "192.168.0.1"]);
 
 t.attrRange({row: [0, 1]}, {
   align: "center",
-  color: "blue"
+  color: "blue",
+  bg: "black"
 });
 
 t.attrRange({column: [0, 1]}, {
