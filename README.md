@@ -65,12 +65,12 @@ new Table({
 - push(["item", "item2",,,],,,)
 - cell(row, column, text)
 - attr(row, column, { attrs })
-##### attrs
+  - __attrs__
   - align: `left`, `center`, `right`
   - color: from colors.js, e.g. `blue`, `red`...
   - bg: `blue`, `black`...
 - attrRange({ range }, { attrs })
-##### range
+  - __range__
   - row: [start, end]
   - column: [start, end]
 - removeCell(row, column)
