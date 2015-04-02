@@ -76,6 +76,7 @@ Table.prototype.format = function(row, column, size){
   var rp = this.space(this.getAttr(row, column, "rightPadding") || this.rightPadding);
   var align = this.getAttr(row, column, "align");
   var color = this.getAttr(row, column, "color");
+  var bg = this.getAttr(row, column, "bg");
   if(color){
     str = colors[color](str);
   }
@@ -88,7 +89,11 @@ Table.prototype.format = function(row, column, size){
     str = str.slice(0, size);
   }
 
-  return this.pad(str, size, align === "right" ? 2 : align === "center" ? 1 : 0);
+  str = this.pad(str, size, align === "right" ? 2 : align === "center" ? 1 : 0);
+  if(bg){
+    str = colors[bg + "BG"](str);
+  }
+  return str;
 };
 
 
