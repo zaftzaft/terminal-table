@@ -35,11 +35,11 @@ console.log("" + t);
 
 ### Constructor options
 - borderStyle
-  - 1: ascii
+  - 1: ascii  
   ![screenshot](https://raw.githubusercontent.com/zaftzaft/terminal-table/master/img/border-style-1.png)
-  - 2: unicode
+  - 2: unicode  
   ![screenshot](https://raw.githubusercontent.com/zaftzaft/terminal-table/master/img/border-style-2.png)
-  - 3: unicode bold
+  - 3: unicode bold  
   ![screenshot](https://raw.githubusercontent.com/zaftzaft/terminal-table/master/img/border-style-3.png)
   - 0: user custom
   ``` js
