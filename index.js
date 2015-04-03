@@ -228,7 +228,7 @@ Table.prototype.getAttr = function(row, column, attr){
 
 Table.prototype.cell = function(row, column, text){
   this.init(row, column);
-  this.table[row][column].text = text;
+  this.table[row][column].text = text + "";
 };
 
 
