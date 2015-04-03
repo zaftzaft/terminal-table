@@ -159,7 +159,10 @@ Table.prototype.calcWidth = function(){
 
 // Horizontal Length ->
 Table.prototype.horlen = function(){
-  return Math.max.apply(null, this.table.map(function(row){return row.length}));
+  return Math.max.apply(null, this.table.reduce(function(arr, row){
+    arr[arr.length] = row.length;
+    return arr;
+  }, []));
 };
 
 
