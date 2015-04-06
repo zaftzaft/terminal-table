@@ -232,6 +232,32 @@ Table.prototype.cell = function(row, column, text){
 };
 
 
+Table.prototype.insertRow = function(rowIndex, items){
+  if(this.table[rowIndex]){
+    this.table.splice(rowIndex, 0, []);
+  }
+  for(var i = 0, l = items.length;i < l;i++){
+    this.cell(rowIndex, i, items[i] || "");
+  }
+};
+
+
+Table.prototype.insertColumn = function(columnIndex, items){
+  var l = Math.max(this.table.length, items.length);
+  for(var i = 0;i < l;i++){
+    if(!this.table[i]){
+      this.table[i] = [];
+    }
+    else{
+      this.table[i].splice(columnIndex, 0, "");
+    }
+    if(items[i]){
+      this.cell(i, columnIndex, items[i]);
+    }
+  }
+};
+
+
 Table.prototype.removeCell = function(row, column){
   this.init(row, column);
 };
