@@ -228,6 +228,9 @@ Table.prototype.getAttr = function(row, column, attr){
 
 Table.prototype.cell = function(row, column, text){
   this.init(row, column);
+  if(!text && text !== 0){
+    return;
+  }
   this.table[row][column].text = text + "";
 };
 
@@ -237,7 +240,7 @@ Table.prototype.insertRow = function(rowIndex, items){
     this.table.splice(rowIndex, 0, []);
   }
   for(var i = 0, l = items.length;i < l;i++){
-    this.cell(rowIndex, i, items[i] || "");
+    this.cell(rowIndex, i, items[i]);
   }
 };
 
@@ -288,7 +291,7 @@ Table.prototype.push = function(items){
 
   var row = this.table.length;
   for(var i = 0, l = items.length;i < l;i++){
-    this.cell(row, i, items[i] || "");
+    this.cell(row, i, items[i]);
   }
 };
 
