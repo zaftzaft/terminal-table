@@ -67,6 +67,8 @@ new Table({
 ### Methods
 - push(["item", "item2",,,],,,)
 - cell(row, column, text)
+- insertRow(rowIndex, ["item", ...])
+- insertColumn(columnIndex, ["item", ...])
 - attr(row, column, { attrs })
   - __attrs__
   - align: `left`, `center`, `right`
