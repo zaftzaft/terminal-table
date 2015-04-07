@@ -2,15 +2,15 @@ var assert = require("assert");
 var Table = require("../");
 
 describe("__defineGetter__", function(){
-  it("width", function(){
+  it("cols", function(){
     var t = new Table();
     t.cell(1, 5, "foo");
-    assert.equal(t.width, 6);
+    assert.equal(t.cols, 6);
   });
 
-  it("height", function(){
+  it("rows", function(){
     var t = new Table();
     t.cell(3, 0, "foo");
-    assert.equal(t.height, 4);
+    assert.equal(t.rows, 4);
   });
 });
