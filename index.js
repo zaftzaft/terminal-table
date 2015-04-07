@@ -200,10 +200,27 @@ Table.prototype.attrRange = function(range, attr){
 
 
 Table.prototype.getRange = function(row, column, attr){
-  for(var i = this.attrMap.length, m;i--;){
+  for(var i = this.attrMap.length, m, s;i--;){
     m = this.attrMap[i];
-    var r = ((m.row[0] || 0) <= row && row < (m.row[1] || Infinity)) ? 1 : 0;
-    var c = ((m.column[0] || 0) <= column && column < (m.column[1] || Infinity)) ? 1 : 0;
+    var startRow = m.row[0] < 0 ? this.table.length + m.row[0] : m.row[0];
+    var endRow = m.row[1] < 0 ? this.table.length + m.row[1] : m.row[1];
+    if(startRow > endRow){
+      s = startRow;
+      startRow = endRow;
+      endRow = s;
+    }
+
+    var startCol = m.column[0] < 0 ? this.horlen() + m.column[0] : m.column[0];
+    var endCol = m.column[1] < 0 ? this.horlen() + m.column[1] : m.column[1];
+    if(startCol > endCol){
+      s = startCol;
+      startCol = endCol;
+      endRow = s;
+    }
+
+    var r = ((startRow || 0) <= row && row < (endRow || Infinity)) ? 1 : 0;
+    var c = ((startCol || 0) <= column && column < (endCol || Infinity)) ? 1 : 0;
+
     if((r & c) && m.attr[attr]){
       return m.attr[attr];
     }
@@ -214,10 +231,7 @@ Table.prototype.getRange = function(row, column, attr){
 
 Table.prototype.getAttr = function(row, column, attr){
   var val = null;
-  if(!this.table[row] || !this.table[row][column]){
-    return null;
-  }
-  if(val = this.table[row][column][attr] || null){
+  if(this.table[row] && this.table[row][column] && (val = this.table[row][column][attr] || null)){
     return val;
   }
   else{
@@ -337,12 +351,12 @@ Table.prototype.output = Table.prototype.toString = function(){
 };
 
 
-Table.prototype.__defineGetter__("width", function(){
+Table.prototype.__defineGetter__("cols", function(){
   return this.horlen();
 });
 
 
-Table.prototype.__defineGetter__("height", function(){
+Table.prototype.__defineGetter__("rows", function(){
   return this.table.length;
 });
 
