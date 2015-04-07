@@ -337,4 +337,14 @@ Table.prototype.output = Table.prototype.toString = function(){
 };
 
 
+Table.prototype.__defineGetter__("width", function(){
+  return this.horlen();
+});
+
+
+Table.prototype.__defineGetter__("height", function(){
+  return this.table.length;
+});
+
+
 module.exports = Table;
