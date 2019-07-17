@@ -1,5 +1,5 @@
 var assert = require("assert");
-var Table = require("../");
+var Table = require("..");
 
 describe("insertRow()", function(){
   it("basic", function(){
